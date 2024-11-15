@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="header">
+    <h2>Admin Dashboard</h2>
+    <h3>Total Donations: {{ donations.count }}</h3>
+    <ul>
+        {% for donation in donations %}
+            <li>{{ donation.donor.username }} donated {{ donation.amount }} on {{ donation.donation_date }}</li>
+        {% endfor %}
+    </ul>
+    <h4>Thank You Messages:</h4>
+    <form method="POST" action="{% url 'thank_donors' %}">
+        {% csrf_token %}
+        <textarea name="thank_you_message" placeholder="Thank your donors here..."></textarea>
+        <button type="submit" class="btn">Send Thank You</button>
+    </form>
+</div>
+
+<div class="content-section">
+    <h3>All Donations</h3>
+    <table class="donations-table">
+        <tr>
+            <th>Donor</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Method</th>
+            <th>Notes</th>
+        </tr>
+        {% for donation in donations %}
+        <tr>
+            <td>{{ donation.donor.username }}</td>
+            <td>{{ donation.amount }}</td>
+            <td>{{ donation.donation_date }}</td>
+            <td>{{ donation.donation_method }}</td>
+            <td>{{ donation.notes }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="content-section">
+    <h3>Donor List</h3>
+    <table class="donors-table">
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Total Donations</th>
+        </tr>
+        {% for donor in donors %}
+        <tr>
+            <td>{{ donor.username }}</td>
+            <td>{{ donor.email }}</td>
+            <td>{{ donor.role }}</td>
+            <td>{{ donor.total_donations }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<style>
+    .header h2 {
+        color: #333;
+        font-size: 1.8em;
+    }
+    .donations-table, .donors-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+    .donations-table th, .donors-table th, 
+    .donations-table td, .donors-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    .donations-table th, .donors-table th {
+        background-color: #f8f9fa;
+        color: #555;
+    }
+</style>
+{% endblock %}

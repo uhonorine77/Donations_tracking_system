@@ -1,0 +1,96 @@
+{% extends 'layout.html' %}
+{% block title %}Donation Collections{% endblock %}
+{% block content %}
+<h1>Donation Collections</h1>
+<a href="{% url 'create_donation' %}" class="btn add-donation-btn">Add New Donation</a>
+<table class="donation-table">
+    <thead>
+        <tr>
+            <th>Donor</th>
+            <th>Amount</th>
+            <th>Donation Date</th>
+            <th>Method</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for donation in donations %}
+        <tr>
+            <td>{{ donation.donor.username }}</td>
+            <td>${{ donation.amount }}</td>
+            <td>{{ donation.donation_date }}</td>
+            <td>{{ donation.donation_method }}</td>
+            <td>{{ donation.notes }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No donations available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<style>
+    h1 {
+        margin-bottom: 20px;
+        font-size: 2em;
+    }
+
+    .add-donation-btn {
+        display: inline-block; /* Make the button a block element */
+        padding: 12px 20px; /* Padding for button */
+        background-color: #28a745; /* Green background */
+        color: white; /* White text color */
+        font-size: 1em; /* Font size for the button */
+        text-align: center; /* Center text */
+        text-decoration: none; /* No underline */
+        border-radius: 5px; /* Rounded corners */
+        border: none; /* Remove border */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        transition: background-color 0.3s, transform 0.2s; /* Smooth transition for effects */
+        margin-bottom: 20px; /* Space below the button */
+    }
+
+    .add-donation-btn:hover {
+        background-color: #218838; /* Darker green on hover */
+        transform: translateY(-2px); /* Lift effect on hover */
+    }
+
+    .donation-table {
+        width: 100%; /* Full width for the table */
+        border-collapse: collapse; /* Merge borders for better visibility */
+        margin-top: 20px; /* Space above the table */
+    }
+
+    .donation-table th, .donation-table td {
+        padding: 10px; /* Padding inside cells */
+        text-align: left; /* Left-aligned text */
+        border-bottom: 1px solid #dee2e6; /* Border for table rows */
+    }
+
+    .donation-table th {
+        background-color: #28a745; /* Header background color */
+        color: white; /* Header text color */
+    }
+
+    .donation-table tbody tr {
+        transition: background-color 0.3s; /* Smooth transition for hover effect */
+    }
+
+    .donation-table tbody tr:hover {
+        background-color: #f2f2f2; /* Light gray background on hover */
+    }
+
+    @media (max-width: 768px) {
+        .donation-table th, .donation-table td {
+            font-size: 0.9em; /* Smaller font on smaller screens */
+            padding: 8px; /* Reduced padding on smaller screens */
+        }
+
+        .add-donation-btn {
+            font-size: 0.9em; /* Smaller button font size */
+        }
+    }
+</style>
+
+{% endblock %}

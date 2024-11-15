@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>Update Donor</h1>
+
+<form method="post" class="donor-form" style="background-color: white; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s;">Update</button>
+</form>
+
+<style>
+    .donor-form {
+        max-width: 500px;
+        margin: 20px auto;
+    }
+
+    .donor-form input,
+    .donor-form select,
+    .donor-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .donor-form button {
+        width: 100%;
+    }
+
+    .donor-form button:hover {
+        background-color: #218838;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="header">
+    <h2>Welcome, {{ user.username }}!</h2>
+</div>
+
+<div class="content-section">
+    <h3>Your Donations</h3>
+    <ul>
+        {% for donation in donations %}
+            <li>Donated {{ donation.amount }} on {{ donation.donation_date }}</li>
+        {% empty %}
+            <li>No donations found.</li>
+        {% endfor %}
+    </ul>
+    <h4>Make a Donation:</h4>
+    <form method="POST" action="{% url 'donation_create' %}">
+        {% csrf_token %}
+        <input type="number" name="amount" placeholder="Enter donation amount" required>
+        <button type="submit" class="btn">Donate</button>
+    </form>
+    <!-- <table class="donations-table">
+        <tr>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Method</th>
+            <th>Notes</th>
+        </tr>
+        {% for donation in donations %}
+        <tr>
+            <td>{{ donation.amount }}</td>
+            <td>{{ donation.donation_date }}</td>
+            <td>{{ donation.donation_method }}</td>
+            <td>{{ donation.notes }}</td>
+        </tr>
+        {% endfor %}
+    </table> -->
+</div>
+
+<style>
+    .header h2 {
+        color: #333;
+        font-size: 1.8em;
+    }
+    .donations-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+    .donations-table th, .donations-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    .donations-table th {
+        background-color: #f8f9fa;
+        color: #555;
+    }
+</style>
+{% endblock %}
